@@ -34,7 +34,7 @@ class MasterViewController: UITableViewController{
             }
             else {
 //                println(NSString(data: data, encoding: NSUTF8StringEncoding))
-                
+                /*
                 let jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as NSDictionary
                 
                 if jsonResult.count > 0 {
@@ -59,7 +59,17 @@ class MasterViewController: UITableViewController{
                         }
                     }
                 }
+*/
                 
+                //make sure everything is saved properly
+                var request = NSFetchRequest(entityName: "Posts")
+                request.returnsObjectsAsFaults = false
+                
+                var results = context.executeFetchRequest(request, error: nil)
+                println(results)
+                
+                //reload the table after saving everything
+                self.tableView.reloadData()
             }
         })
         task.resume()
