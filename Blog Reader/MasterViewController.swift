@@ -42,24 +42,27 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
                 
                 if jsonResult.count > 0 {
                     if let items = jsonResult["items"] as? NSArray {
+                        
+                        //REMOVE ALL THE POSTS THAT WERE STORED PREVIOUSLY
+                        var request = NSFetchRequest(entityName: "Posts")
+                        request.returnsObjectsAsFaults = false
+                        
+                        var results = context.executeFetchRequest(request, error: nil)!
+                        if results.count > 0 {
+                            for result in results {
+                                context.deleteObject(result as NSManagedObject)
+                                context.save(nil)
+                            }
+                        }
+                        
                         for item in items {
                             //println(item)
-                            
-                            var request = NSFetchRequest(entityName: "Posts")
-                            request.returnsObjectsAsFaults = false
-                            
-                            var results = context.executeFetchRequest(request, error: nil)!
-                            if results.count > 0 {
-                                for result in results {
-                                    context.deleteObject(result as NSManagedObject)
-                                    context.save(nil)
-                                }
-                            }
                             
                             //both title and content should exist
                             if let title = item["title"] as? String {
                                 if let content = item["content"] as? String {
-//                                    println(title)
+                                    println(title)
+                                    println("\n")
 //                                    println(content)
                                     var newPost :NSManagedObject = NSEntityDescription.insertNewObjectForEntityForName("Posts", inManagedObjectContext: context) as NSManagedObject
                                     newPost.setValue(title, forKey: "title")
@@ -151,7 +154,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         fetchRequest.fetchBatchSize = 20
         
         // Edit the sort key as appropriate.
-        let sortDescriptor = NSSortDescriptor(key: "title", ascending: false)
+        let sortDescriptor = NSSortDescriptor(key: "title", ascending: true)
         let sortDescriptors = [sortDescriptor]
         
         fetchRequest.sortDescriptors = [sortDescriptor]
