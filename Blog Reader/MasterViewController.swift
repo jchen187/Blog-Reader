@@ -20,6 +20,19 @@ class MasterViewController: UITableViewController{
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        let url = NSURL(string: "https://www.googleapis.com/blogger/v3/blogs/10861780/posts?key=AIzaSyCWHQIxPFhF5hG-UIppwBB1zl2BBeRO4zg")
+        
+        let session = NSURLSession.sharedSession()
+        let task = session.dataTaskWithURL(url!, completionHandler: { (data, response, error) -> Void in
+            
+            if error != nil {
+                println(error)
+            }
+            else {
+                println(NSString(data: data, encoding: NSUTF8StringEncoding))
+            }
+        })
+        task.resume()
 
     }
 
