@@ -31,7 +31,6 @@ class DetailViewController: UIViewController {
 //                label.text = detail.valueForKey("timeStamp")!.description
             }
         }
-        
     }
 
     override func viewDidLoad() {

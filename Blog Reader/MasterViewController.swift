@@ -74,6 +74,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
                             
                             
                         }
+                        println("1-savePoststoCoredata")
                     }
                 }
 
@@ -88,9 +89,11 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
 
                 //reload the table after saving everything
                 self.tableView.reloadData()
+                println("2-reloadData")
             }
         })
         task.resume()
+
 
     }
 
@@ -124,9 +127,12 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let sectionInfo = self.fetchedResultsController.sections![section] as NSFetchedResultsSectionInfo
         return sectionInfo.numberOfObjects
+//        println("hi")
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+//        println("hi")
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
 //        cell.textLabel?.text = "Test"
         self.configureCell(cell, atIndexPath: indexPath)
@@ -136,6 +142,8 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
 
     func configureCell(cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) {
         let object = self.fetchedResultsController.objectAtIndexPath(indexPath) as NSManagedObject
+//        println(indexPath)
+//        println(object)
         cell.textLabel!.text = object.valueForKey("title")!.description
     }
     
