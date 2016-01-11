@@ -34,7 +34,7 @@ class MasterViewController: UITableViewController{
             }
             else {
 //                println(NSString(data: data, encoding: NSUTF8StringEncoding))
-                /*
+                
                 let jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as NSDictionary
                 
                 if jsonResult.count > 0 {
@@ -42,11 +42,22 @@ class MasterViewController: UITableViewController{
                         for item in items {
                             //println(item)
                             
+                            var request = NSFetchRequest(entityName: "Posts")
+                            request.returnsObjectsAsFaults = false
+                            
+                            var results = context.executeFetchRequest(request, error: nil)!
+                            if results.count > 0 {
+                                for result in results {
+                                    context.deleteObject(result as NSManagedObject)
+                                    context.save(nil)
+                                }
+                            }
+                            
                             //both title and content should exist
                             if let title = item["title"] as? String {
                                 if let content = item["content"] as? String {
-                                    println(title)
-                                    println(content)
+//                                    println(title)
+//                                    println(content)
                                     var newPost :NSManagedObject = NSEntityDescription.insertNewObjectForEntityForName("Posts", inManagedObjectContext: context) as NSManagedObject
                                     newPost.setValue(title, forKey: "title")
                                     newPost.setValue(content, forKey: "content")
@@ -59,15 +70,16 @@ class MasterViewController: UITableViewController{
                         }
                     }
                 }
-*/
-                
+
+                /*
                 //make sure everything is saved properly
                 var request = NSFetchRequest(entityName: "Posts")
                 request.returnsObjectsAsFaults = false
                 
-                var results = context.executeFetchRequest(request, error: nil)
+                var results = context.executeFetchRequest(request, error: nil)!
                 println(results)
-                
+                */
+
                 //reload the table after saving everything
                 self.tableView.reloadData()
             }
