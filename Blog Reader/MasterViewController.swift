@@ -29,7 +29,26 @@ class MasterViewController: UITableViewController{
                 println(error)
             }
             else {
-                println(NSString(data: data, encoding: NSUTF8StringEncoding))
+//                println(NSString(data: data, encoding: NSUTF8StringEncoding))
+                
+                let jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as NSDictionary
+                
+                if jsonResult.count > 0 {
+                    if let items = jsonResult["items"] as? NSArray {
+                        for item in items {
+                            //println(item)
+                            
+                            if let title = item["title"] as? String {
+                                println(title)
+                            }
+                            if let content = item["content"] as? String {
+                                println(content)
+                            }
+                            
+                        }
+                    }
+                }
+                
             }
         })
         task.resume()
