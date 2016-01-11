@@ -20,6 +20,10 @@ class MasterViewController: UITableViewController{
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        //create variable to access our appdelegate
+        var appDel:AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        var context:NSManagedObjectContext = appDel.managedObjectContext!
+        
         let url = NSURL(string: "https://www.googleapis.com/blogger/v3/blogs/10861780/posts?key=AIzaSyCWHQIxPFhF5hG-UIppwBB1zl2BBeRO4zg")
         
         let session = NSURLSession.sharedSession()
@@ -38,12 +42,19 @@ class MasterViewController: UITableViewController{
                         for item in items {
                             //println(item)
                             
+                            //both title and content should exist
                             if let title = item["title"] as? String {
-                                println(title)
+                                if let content = item["content"] as? String {
+                                    println(title)
+                                    println(content)
+                                    var newPost :NSManagedObject = NSEntityDescription.insertNewObjectForEntityForName("Posts", inManagedObjectContext: context) as NSManagedObject
+                                    newPost.setValue(title, forKey: "title")
+                                    newPost.setValue(content, forKey: "content")
+                                    
+                                    context.save(nil)
+                                }
                             }
-                            if let content = item["content"] as? String {
-                                println(content)
-                            }
+                            
                             
                         }
                     }
