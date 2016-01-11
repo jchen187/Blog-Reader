@@ -10,6 +10,8 @@ import UIKit
 
 class DetailViewController: UIViewController {
 
+    @IBOutlet var webview: UIWebView!
+    
     var detailItem: AnyObject? {
         didSet {
             // Update the view.

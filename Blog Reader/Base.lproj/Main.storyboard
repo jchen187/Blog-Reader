@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F1507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="rS3-R9-Ivy">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Master-->
@@ -73,9 +74,24 @@
                     <view key="view" contentMode="scaleToFill" id="MMQ-IT-qOo">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dbF-ix-2wU">
+                                <rect key="frame" x="0.0" y="64" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </webView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="dbF-ix-2wU" firstAttribute="top" secondItem="cIm-e0-J51" secondAttribute="bottom" id="9RI-AV-3RB"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="dbF-ix-2wU" secondAttribute="trailing" constant="-16" id="jJq-lf-F3Z"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="dbF-ix-2wU" secondAttribute="bottom" constant="-64" id="lAq-SF-6UX"/>
+                            <constraint firstItem="dbF-ix-2wU" firstAttribute="leading" secondItem="MMQ-IT-qOo" secondAttribute="leadingMargin" constant="-16" id="mo0-dg-gHo"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Blog Post" id="cra-N8-TIN"/>
+                    <connections>
+                        <outlet property="webview" destination="dbF-ix-2wU" id="tu3-lI-Zmw"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lrm-kH-fPn" sceneMemberID="firstResponder"/>
             </objects>
