@@ -105,7 +105,13 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showDetail" {
-            println("Show detail")
+//            println("Show detail")
+            
+            //FINDING WHERE YOU PRESSED
+            if let indexPath = self.tableView.indexPathForSelectedRow() {
+                let object = self.fetchedResultsController.objectAtIndexPath(indexPath) as NSManagedObject
+                (segue.destinationViewController as DetailViewController).detailItem = object
+            }
         }
     }
 

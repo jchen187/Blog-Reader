@@ -22,6 +22,16 @@ class DetailViewController: UIViewController {
     func configureView() {
         // Update the user interface for the detail item.
         
+        //the detail item was set in the prepare for segue method
+        if let detail: AnyObject = self.detailItem {
+            //in case it runs before webview is created
+            if let wv = self.webview {
+                
+                wv.loadHTMLString(detail.valueForKey("content")!.description, baseURL: nil)
+//                label.text = detail.valueForKey("timeStamp")!.description
+            }
+        }
+        
     }
 
     override func viewDidLoad() {
